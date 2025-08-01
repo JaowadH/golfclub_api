@@ -1,4 +1,4 @@
-name: CI - Build and Test
+name: CI - Build, Docker Compose and Test
 
 on:
   push:
@@ -8,8 +8,22 @@ on:
 
 jobs:
   build:
-    name: Build and Test
+    name: Build, Docker Compose and Verify
     runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: golfclub
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
 
     steps:
       - name: Checkout Code
@@ -26,7 +40,6 @@ jobs:
         with:
           path: |
             ~/.m2/repository
-            !~/.m2/repository/org/example/golfclub
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
@@ -42,3 +55,18 @@ jobs:
         with:
           name: golfclub-api-jar
           path: target/*.jar
+
+      - name: Build Docker Image
+        run: docker-compose build
+
+      - name: Run Docker Containers
+        run: docker-compose up -d
+
+      - name: Wait for App to Start
+        run: sleep 15
+
+      - name: Show Running Containers
+        run: docker ps
+
+      - name: Show App Logs (Spring Boot)
+        run: docker logs $(docker ps -q --filter name=golfclub-api)
