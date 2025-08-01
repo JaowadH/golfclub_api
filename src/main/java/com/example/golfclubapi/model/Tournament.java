@@ -28,4 +28,15 @@ public class Tournament {
             inverseJoinColumns = @JoinColumn(name = "member_id")
     )
     private Set<Member> participants = new HashSet<>();
+
+    public Tournament() {
+    }
+
+    public Tournament(LocalDate startDate, LocalDate endDate, String location, double entryFee, double cashPrize) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.location = location;
+        this.entryFee = entryFee;
+        this.cashPrize = cashPrize;
+    }
 }

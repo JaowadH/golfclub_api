@@ -24,4 +24,12 @@ public class Member {
 
     @ManyToMany(mappedBy = "participants")
     private Set<Tournament> tournaments = new HashSet<>();
+
+public Member(String name, String address, String email, String phoneNumber, LocalDate startDate, int durationInMonths) {
+    this.name = name;
+    this.address = address;
+    this.email = email;
+    this.phoneNumber = phoneNumber;
+    this.startDate = startDate;
+    this.durationInMonths = durationInMonths;
 }
