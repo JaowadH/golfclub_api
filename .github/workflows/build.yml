@@ -57,10 +57,10 @@ jobs:
           path: target/*.jar
 
       - name: Build Docker Image
-        run: docker-compose build
+        run: docker compose build
 
       - name: Run Docker Containers
-        run: docker-compose up -d
+        run: docker compose up -d
 
       - name: Wait for App to Start
         run: sleep 15
