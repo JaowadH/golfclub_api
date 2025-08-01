@@ -1,4 +1,4 @@
-package com.example.golfclub_api;
+package com.example.golfclubapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

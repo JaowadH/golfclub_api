@@ -1,4 +1,4 @@
-package com.example.golfclub_api;
+package com.example.golfclubapi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
